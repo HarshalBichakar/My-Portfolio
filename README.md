@@ -17,5 +17,8 @@ A responsive and modern personal portfolio website to showcase my projects, skil
 - JavaScript  
 *(or replace with React, Tailwind CSS, etc., if applicable)*
 
+## 📸 Preview
+
+![Portfolio Preview] https://harshalbichakar.github.io/My-Portfolio/
 
 
