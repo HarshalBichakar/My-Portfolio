@@ -19,8 +19,8 @@ Welcome to my personal portfolio website! This project showcases my skills, proj
 ## 🛠 Built With
 
 - HTML5  
-- CSS3 / Bootstrap / Tailwind (update as per your stack)  
-- JavaScript / React.js (if applicable)  
+- CSS3 / Tailwind 
+- JavaScript
 - GitHub Pages for deployment
 
 ## 🚀 Getting Started
