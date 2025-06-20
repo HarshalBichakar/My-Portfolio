@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harshal Bichkar | Web Developer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#4f46e5',
+                        dark: '#111827',
+                        light: '#f9fafb'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif']
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #818cf8 100%);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(to right, #4f46e5, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+        }
+        
+        .project-card {
+            transition: all 0.5s ease;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        
+        .project-card.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .skill-card {
+            transition: all 0.5s ease;
+            transform: translateX(-50px);
+            opacity: 0;
+        }
+        
+        .skill-card.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #6366f1;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.1) 100%);
+            border-radius: 43% 57% 70% 30% / 30% 43% 57% 70%;
+            transform: translate(-50%, -50%);
+            animation: transform 20s ease-in-out infinite both alternate;
+            z-index: -1;
+        }
+        
+        @keyframes transform {
+            0%, 100% {
+                border-radius: 43% 57% 70% 30% / 30% 43% 57% 70%;
+            }
+            25% {
+                border-radius: 70% 30% 30% 70% / 70% 43% 57% 30%;
+            }
+            50% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            }
+            75% {
+                border-radius: 70% 30% 30% 70% / 57% 70% 30% 43%;
+            }
+        }
+        
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 50px;
+            background-color: #6366f1;
+            margin-left: 8px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: #6366f1;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #6366f1;
+        }
+        
+        .scroll-down {
+            animation: scrollDown 2s ease-in-out infinite;
+        }
+        
+        @keyframes scrollDown {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(10px);
+            }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .rotate-slow {
+            animation: rotate 15s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 1s ease forwards;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .slide-in-right {
+            animation: slideInRight 1s ease forwards;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 1s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .mobile-menu {
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateY(0);
+        }
+        
+        .progress-bar {
+            height: 3px;
+            background-color: #6366f1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            transition: width 0.1s ease;
+        }
+        
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            left: 10rem;
+            z-index: 10;
+            width: 100%;
+        }
+        
+         /* New styles for the updated design */
+         .social-icon-about {
+            transition: all 0.5s ease !important;
+        }
+        
+        .social-icon-about:hover {
+            transition: all 0.3s ease !important;
+            transform: translateY(-8px);
+        }
+        .geometric-shape {
+            position: absolute;
+            border-radius: 10px;
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        .shape-1 {
+            width: 200px;
+            height: 180px;
+            background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+            animation-delay: 0.5s;
+        }
+        
+        .shape-2 {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(90deg, #f87171 0%, #fb7185 100%);
+            animation-delay: 1s;
+        }
+        
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(90deg, #a78bfa 0%, #c4b5fd 100%);
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+        
+        /* Resume Popup Styles */
+        .resume-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 95%;
+            max-width: 1000px;
+            max-height: 90vh;
+            background-color: white;
+            z-index: 1000;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            border-radius: 15px 10px 10px 15px !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            margin: 0 auto;
+        }
+
+        .resume-popup.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .resume-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(3px);
+        }
+
+        .resume-popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .resume-close-btn {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            background-color: white;
+            color: #353785;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        .resume-close-btn i{
+            font-size: 20px;
+        }
+
+        .resume-close-btn:hover {
+            color: #4f46e5;
+            transition: 0.3s ease-in-out;
+            transform: rotate(180deg);
+        }
+
+        /* Add this custom scrollbar for the resume popup */
+        .resume-popup::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .resume-popup::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .resume-popup::-webkit-scrollbar-thumb {
+            background: #6366f1;
+            border-radius: 10px;
+        }
+
+        .resume-popup::-webkit-scrollbar-thumb:hover {
+            background: #4f46e5;
+        }
+
+        /* Update the resume content container with better spacing */
+        .resume-content {
+            padding: 30px;
+            position: relative;
+        }
+
+        /* Update the resume header */
+        .resume-header {
+            border-radius: 10px 0 0 0 !important;
+            padding: 30px;
+            position: relative;
+        }
+
+        /* Add subtle animations for resume content */
+        .resume-animate {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Delay animation for different sections */
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+        .delay-4 {
+            animation-delay: 0.4s;
+        }
+    </style>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 w-full bg-white shadow-md z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-around items-center">
+                <a href="#home" class="text-2xl font-display font-bold text-gradient">
+                    &lt;/&gt; Portfolio
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link active text-gray-800 hover:text-primary transition-colors px-2">Home</a>
+                    <a href="#about" class="nav-link text-gray-800 hover:text-primary transition-colors px-2">About</a>
+                    <a href="#skills" class="nav-link text-gray-800 hover:text-primary transition-colors px-2">Skills</a>
+                    <a href="#projects" class="nav-link text-gray-800 hover:text-primary transition-colors px-2">Projects</a>
+                    <a href="#contact" class="nav-link text-gray-800 hover:text-primary transition-colors px-2">Contact</a>
+                    <a href="#" id="resumeBtn" class="ml-4 bg-primary text-white py-2 px-6 rounded-md hover:bg-secondary transition-colors">Resume</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-800 focus:outline-none" id="menuBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="mobile-menu md:hidden absolute left-0 w-full bg-white shadow-md mt-4 py-2 px-4" id="mobileMenu">
+                <a href="#home" class="block py-2 text-gray-800 hover:text-primary transition-colors">Home</a>
+                <a href="#about" class="block py-2 text-gray-800 hover:text-primary transition-colors">About</a>
+                <a href="#skills" class="block py-2 text-gray-800 hover:text-primary transition-colors">Skills</a>
+                <a href="#projects" class="block py-2 text-gray-800 hover:text-primary transition-colors">Projects</a>
+                <a href="#contact" class="block py-2 text-gray-800 hover:text-primary transition-colors">Contact</a>
+                <a href="#" id="resumeBtnMobile" class="block py-2 text-gray-800 hover:text-primary transition-colors">Resume</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <div id="particles-js"></div>
+        <div class="blob top-1/2 left-1/4"></div>
+        <div class="blob top-1/3 right-1/4"></div>
+        
+        <div class="container mx-auto px-6 py-20 relative z-10 hero-content">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0">
+                    <div class="slide-in-left">
+                        <h3 class="text-primary font-semibold mb-2">Hello, I'm</h3>
+                        <h1 class="text-5xl md:text-6xl font-display font-bold mb-4">Harshal Bichkar</h1>
+                        <h2 class="text-3xl md:text-4xl font-semibold mb-6 text-gradient" id="typingText">MERN Stack Developer</h2>
+                        <p class="text-gray-600 mb-8 max-w-lg">Passionate about creating innovative web solutions with modern technologies and clean, efficient code.</p>
+                        
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#projects" class="bg-gradient text-white font-medium py-3 px-8 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                                View My Work
+                            </a>
+                            <a href="#contact" class="border-2 border-primary text-primary font-medium py-3 px-8 rounded-full hover:bg-primary hover:text-white transition-all duration-300">
+                                Contact Me
+                            </a>
+                          
+                        </div>
+                    
+                    </div>
+                </div>
+                
+                <div class="relative w-80 h-80 mr-auto">
+                    <div class="geometric-shape shape-1 top-0 right-0"></div>
+                    <div class="geometric-shape shape-2 top-20 left-20"></div>
+                    <div class="geometric-shape shape-3 bottom-20 right-0"></div>
+                </div>
+            </div>
+            </div>
+            
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-center">
+                <div class="scroll-down text-primary">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </div>
+                <p class="text-sm text-gray-600 mt-2">Scroll Down</p>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 w-full">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1" d="M0,288L48,272C96,256,192,224,288,213.3C384,203,480,213,576,229.3C672,245,768,267,864,261.3C960,256,1056,224,1152,208C1248,192,1344,192,1392,192L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-display font-bold mb-4">About Me</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-4/12" id="aboutImage">
+                    <div class="relative w-fit mx-auto">
+                        <div class="absolute -top-4 -left-4 w-full h-full border-2 border-primary rounded-lg"></div>
+                        <img src="https://i.ibb.co/Y4VcTzSd/Harshal.png"
+                             alt="Harshal Bichkar" 
+                             class="relative z-10 rounded-lg shadow-xl w-full max-w-xs">
+                    </div>
+                </div>
+                
+                <div class="md:w-8/12" id="aboutContent">
+                    <h3 class="text-2xl font-bold mb-4">Who I Am</h3>
+                    <p class="text-gray-600 mb-6">I'm a passionate MERN Stack Developer with strong expertise in software development and Frontend design. I specialize in modern frameworks and technologies like React, Node.js, and Tailwind CSS.</p>
+                    <p class="text-gray-600 mb-6">My journey in development began during my B.Tech in Computer Science, and I've built a proven track record through real-world projects and internships.</p>
+                    <p class="text-gray-600 mb-8">When I'm not coding, you can find me Gaming, Travelling, or experimenting with new technologies.</p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-user text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Name</h4>
+                                <p class="text-gray-600">Harshal Bichkar</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Email</h4>
+                                <p class="text-gray-600">bichkarharshal25@gmail.com.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Location</h4>
+                                <p class="text-gray-600">Maharashtra ,India</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-graduation-cap text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Degree</h4>
+                                <p class="text-gray-600">B.Tech in Computer Science</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-12 h-12 bg-[#333] hover:bg-[#222] text-white rounded-full flex items-center justify-center transition-colors social-icon-about">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-[#0077b5] hover:bg-[#00669c] text-white rounded-full flex items-center justify-center transition-colors social-icon-about">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 bg-[#1da1f2] hover:bg-[#0d8fd9] text-white rounded-full flex items-center justify-center transition-colors social-icon-about">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-display font-bold mb-4">My Skills</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Here are the technologies and tools I work with</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- HTML -->
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-[#E44D26] bg-opacity-10 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fab fa-html5 text-4xl text-[#E44D26]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">HTML</h3>
+                    </div>
+                    <p class="text-gray-600">Proficient in writing semantic HTML5 markup, accessibility best practices, and structured content for modern web applications.</p>
+                </div>
+                
+                <!-- CSS -->
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-[#264DE4] bg-opacity-10 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fab fa-css3-alt text-4xl text-[#264DE4]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">CSS</h3>
+                    </div>
+                    <p class="text-gray-600">Expert in CSS3, Flexbox, Grid, animations, and responsive design principles to create beautiful user interfaces.</p>
+                </div>
+                
+                <!-- JavaScript -->
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-[#F7DF1E] bg-opacity-10 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fab fa-js text-4xl text-[#F7DF1E]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">JavaScript</h3>
+                    </div>
+                    <p class="text-gray-600">Strong knowledge of ES6+, DOM manipulation, async programming, and modern JS practices for dynamic web applications.</p>
+                </div>
+                
+                <!-- React.js -->
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-[#61DAFB] bg-opacity-10 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fab fa-react text-4xl text-[#61DAFB]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">React.js</h3>
+                    </div>
+                    <p class="text-gray-600">Experienced in building complex UIs with React, Redux, hooks, and modern React patterns for interactive front-end applications.</p>
+                </div>
+                
+                <!-- Node.js -->
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-[#339933] bg-opacity-10 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fab fa-node-js text-4xl text-[#339933]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Node.js</h3>
+                    </div>
+                    <p class="text-gray-600">Skilled in server-side JavaScript, RESTful APIs, and backend architecture with Node.js for scalable web services.</p>
+                </div>
+                
+                <!-- Express.js -->
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-[#000000] bg-opacity-10 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-server text-4xl text-[#000000]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Express.js</h3>
+                    </div>
+                    <p class="text-gray-600">Proficient in building robust APIs and web servers using Express.js framework with middleware and routing capabilities.</p>
+                </div>
+                
+                <!-- MongoDB -->
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-[#47A248] bg-opacity-10 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-database text-4xl text-[#47A248]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">MongoDB</h3>
+                    </div>
+                    <p class="text-gray-600">Experienced in NoSQL database design, queries, and MongoDB Atlas cloud deployment for flexible data storage solutions.</p>
+                </div>
+                
+                <!-- Python -->
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-[#3776AB] bg-opacity-10 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fab fa-python text-4xl text-[#3776AB]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Python</h3>
+                    </div>
+                    <p class="text-gray-600">Knowledge of Python for scripting, data analysis, and backend development with frameworks like Flask and Django.</p>
+                </div>
+                
+                <!-- Java -->
+                <div class="skill-card bg-white p-8 rounded-lg shadow-lg card-hover">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-[#007396] bg-opacity-10 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fab fa-java text-4xl text-[#007396]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Java</h3>
+                    </div>
+                    <p class="text-gray-600">Solid foundation in Java programming, OOP principles, and enterprise applications for robust backend systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-white border-2">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-display font-bold mb-4">My Projects</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A showcase of my recent work and projects</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: Arks Aviation -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="relative overflow-hidden" style="height: 200px;">
+                        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';" 
+                             alt="Arks Aviation" 
+                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Arks Aviation Website</h3>
+                        <p class="text-gray-600 mb-4">A modern aviation website showcasing aircraft services and details with interactive features.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">HTML 5</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">Taiwind CSS</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">PHP</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">JavaScript</span>
+                        </div>
+                        <button class="view-project bg-primary text-white font-medium py-2 px-4 rounded hover:bg-secondary transition-colors" 
+                                data-project="arks-aviation">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Project 2: Infynow Software Solutions -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="relative overflow-hidden" style="height: 200px;">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                             alt="Infynow Software Solutions" 
+                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Infynow Software Solutions</h3>
+                        <p class="text-gray-600 mb-4">A tech firm portfolio built during internship, displaying services and team members.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">HTML 5</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">Tailwind CSS</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">PHP</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">JavaScript</span>
+                        </div>
+                        <button class="view-project bg-primary text-white font-medium py-2 px-4 rounded hover:bg-secondary transition-colors" 
+                                data-project="infynow">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+                 <!-- Project 3: Student Management System -->
+                    <div class="project-card bg-white rounded-lg overflow-hidden shadow-lg">
+                        <div class="relative overflow-hidden" style="height: 200px;">
+                            <img src="https://www.hashmicro.com/blog/wp-content/uploads/2023/04/kemudahan-akses-data-12.png" 
+                                alt="Student Management System" 
+                                class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Student Management System</h3>
+                            <p class="text-gray-600 mb-4">A MERN stack web app for managing student records with CRUD operations and real-time search.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">React</span>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">Node.js</span>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">Express</span>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">MongoDB</span>
+                            </div>
+                            <button class="view-project bg-primary text-white font-medium py-2 px-4 rounded hover:bg-secondary transition-colors" 
+                                    data-project="student-management">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+
+                     <!-- Project 4: Niswarga Website -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="relative overflow-hidden" style="height: 200px;">
+                        <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                             alt="Niswarga Website" 
+                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Niswarga Website</h3>
+                        <p class="text-gray-600 mb-4">A clean wellness and Ayurveda website with blog and product highlights.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">WordPress</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">PHP</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">MySQL</span>
+                        </div>
+                        <button class="view-project bg-primary text-white font-medium py-2 px-4 rounded hover:bg-secondary transition-colors" 
+                                data-project="niswarga">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+                <!-- Project 5: Zotono -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="relative overflow-hidden" style="height: 200px;">
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                            alt="Zotono" 
+                            class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Zotono</h3>
+                        <p class="text-gray-600 mb-4">A Justdial-like platform to list and explore local businesses with search, category filtering, and responsive design.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">React</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">Node.js</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">Express</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">MongoDB</span>
+                        </div>
+                        <button class="view-project bg-primary text-white font-medium py-2 px-4 rounded hover:bg-secondary transition-colors" 
+                                data-project="zotono">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+
+                <!-- Project 6: Green Genius -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="relative overflow-hidden" style="height: 200px;">
+                        <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGxhbnR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" 
+                             alt="Green Genius" 
+                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Green Genius</h3>
+                        <p class="text-gray-600 mb-4">An ML-powered web app that identifies medicinal plants using image input and TensorFlow.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">Python</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">Machine Learning</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">TensorFlow</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">Flask</span>
+                        </div>
+                        <button class="view-project bg-primary text-white font-medium py-2 px-4 rounded hover:bg-secondary transition-colors" 
+                                data-project="green-genius">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+
+                
+                 <!-- Project 7: Laxmi Developers -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="relative overflow-hidden" style="height: 200px;">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                             alt="Laxmi Developers" 
+                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Laxmi Developers</h3>
+                        <p class="text-gray-600 mb-4">Real estate site featuring listings and property overviews with interactive maps.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">HTML</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">CSS</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">JavaScript</span>
+                        </div>
+                        <button class="view-project bg-primary text-white font-medium py-2 px-4 rounded hover:bg-secondary transition-colors" 
+                                data-project="laxmi-developers">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project 8: Plusone Fabrics -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-lg">
+                    <div class="relative overflow-hidden" style="height: 200px;">
+                        <img src="https://cdn.pixabay.com/photo/2023/05/25/09/06/factory-8016686_1280.jpg" 
+                             alt="Plusone Fabrics" 
+                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Plusone Machine Fabrik</h3>
+                        <p class="text-gray-600 mb-4">E-commerce interface for a fabric wholesaler with product display and contact integration.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">React</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">Express</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">MongoDB</span>
+                        </div>
+                        <button class="view-project bg-primary text-white font-medium py-2 px-4 rounded hover:bg-secondary transition-colors" 
+                                data-project="plusone-fabrics">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+                
+                
+                <!-- Project 9: Vaccination Slot Availability System -->
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-lg mx-auto md:col-span-2 lg:col-span-1">
+                    <div class="relative overflow-hidden" style="height: 200px;">
+                        <img src="https://www.bmedicalsystems.com/en-in/wp-content/uploads/sites/7/2022/05/Blog_Flu-Vaccine-Storage-1024x573-1.jpg" 
+                             alt="Vaccination Slot Availability System" 
+                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Vaccination Slot Availability System</h3>
+                        <p class="text-gray-600 mb-4">Real-time system that fetches vaccine slot data via APIs and displays to users.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">Python</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">PHP</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-1 rounded">HTML/CSS</span>
+                        </div>
+                        <button class="view-project bg-primary text-white font-medium py-2 px-4 rounded hover:bg-secondary transition-colors" 
+                                data-project="vaccination-system">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Project Modal -->
+        <div id="project-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center hidden">
+            <div class="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 id="modal-title" class="text-2xl font-bold"></h3>
+                        <button id="close-modal" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                            <i class="fas fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    <div id="modal-content"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl font-display font-bold mb-2">Get In Touch</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Have a project in mind? Let's discuss how I can help you.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-20 justify-center">
+                <!-- Contact Form -->
+                <div class="md:w-5/12" id="contactForm">
+                    <form id="contact-form" class="space-y-6 bg-white  p-8 rounded-lg shadow-lg">
+                        <div>
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Your Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Your Message</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" required></textarea>
+                        </div>
+                        <button type="submit" class="bg-gradient text-white font-medium py-3 px-8 rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-full">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="md:w-4/12" id="contactInfo">
+                    <div class="bg-white p-8 rounded-lg shadow-lg h-full">
+                        <h3 class="text-2xl font-bold mb-8">Contact Information</h3>
+                        <div class="space-y-8">
+                            <div class="flex items-start">
+                                <div class="bg-primary bg-opacity-10 text-primary p-4 rounded-lg mr-4">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">Email</h4>
+                                    <p class="text-gray-600">alex@example.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-primary bg-opacity-10 text-primary p-4 rounded-lg mr-4">
+                                    <i class="fas fa-phone text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">Phone</h4>
+                                    <p class="text-gray-600">+1 (555) 123-4567</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-primary bg-opacity-10 text-primary p-4 rounded-lg mr-4">
+                                    <i class="fas fa-map-marker-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">Location</h4>
+                                    <p class="text-gray-600">San Francisco, CA, USA</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-10">
+                            <h4 class="font-bold text-lg mb-4">Follow Me</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="bg-primary bg-opacity-10 hover:bg-opacity-20 text-primary p-3 rounded-lg transition-colors">
+                                    <i class="fab fa-github text-xl"></i>
+                                </a>
+                                <a href="#" class="bg-primary bg-opacity-10 hover:bg-opacity-20 text-primary p-3 rounded-lg transition-colors">
+                                    <i class="fab fa-linkedin-in text-xl"></i>
+                                </a>
+                                <a href="#" class="bg-primary bg-opacity-10 hover:bg-opacity-20 text-primary p-3 rounded-lg transition-colors">
+                                    <i class="fab fa-twitter text-xl"></i>
+                                </a>
+                                <a href="#" class="bg-primary bg-opacity-10 hover:bg-opacity-20 text-primary p-3 rounded-lg transition-colors">
+                                    <i class="fab fa-instagram text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Resume Popup -->
+    <div class="resume-popup-overlay" id="resumeOverlay"></div>
+    <div class="resume-popup" id="resumePopup">
+        <div class="resume-close-btn" id="resumeCloseBtn">
+            <i class="fas fa-times"></i>
+        </div>
+        
+        <!-- Resume Content -->
+        <div>
+            <!-- Resume Header -->
+            <div class="bg-gradient text-white p-8 rounded-t-lg shadow-lg resume-header">
+                <div class="flex flex-col md:flex-row justify-between items-center resume-animate">
+                    <div>
+                        <h3 class="text-3xl font-bold">Harshal Bichkar</h3>
+                        <h4 class="text-xl mt-2">MERN Stack Developer</h4>
+                    </div>
+                    <div class="mt-4 md:mt-0">
+                        <a href="#" class="bg-white text-primary font-medium py-3 px-8 rounded-full inline-flex items-center hover:bg-gray-100 transition-all duration-300">
+                            <i class="fas fa-download mr-2"></i> Download Resume
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Resume Content -->
+            <div class="bg-white rounded-b-lg shadow-lg p-8 mb-10 resume-content">
+                <!-- Contact Information -->
+                <div class="flex flex-wrap justify-center gap-6 mb-10 border-b border-gray-200 pb-6 resume-animate delay-1">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-envelope text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">bichakarharshal25@gmail.com</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-phone text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">8446032502</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Kolhapur, Maharashtra, India</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                            <i class="fab fa-linkedin-in text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">harshal_bichkar</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-3">
+                            <i class="fab fa-github text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Harshal_Bichkar</span>
+                    </div>
+                </div>
+                
+                <!-- Profile Summary -->
+                <div class="mb-10 resume-animate delay-2">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center">
+                        <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        Profile Summary
+                    </h3>
+                    <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-primary">
+                        <p class="text-gray-700 leading-relaxed">
+                            Dedicated Computer Science student with expertise in MERN Stack Development. Proficient in modern frameworks and technologies
+                            to create dynamic, user-friendly applications. Proven track record through projects and internships. Seeking opportunities to
+                            leverage my skills in innovative projects.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Two Column Layout for the rest -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <!-- Left Column -->
+                    <div class="resume-animate delay-3">
+                        <!-- Education -->
+                        <div class="mb-10">
+                            <h3 class="text-2xl font-bold mb-4 flex items-center">
+                                <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                Education
+                            </h3>
+                            <div class="space-y-6">
+                                <div class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow">
+                                    <h4 class="text-xl font-bold text-gray-800">B.Tech in Computer Science and Engineering</h4>
+                                    <p class="text-primary font-medium">Sharad Institute of Technology College of Engineering, Yadrav</p>
+                                    <div class="flex justify-between mt-2">
+                                        <span class="text-gray-600">Graduating 2025</span>
+                                        <span class="font-semibold">CGPA: 7.57</span>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow">
+                                    <h4 class="text-xl font-bold text-gray-800">12th Maharashtra Board (PCM)</h4>
+                                    <p class="text-primary font-medium">DKTE, Ichalkaranji</p>
+                                    <div class="flex justify-between mt-2">
+                                        <span class="text-gray-600">March 2021</span>
+                                        <span class="font-semibold">Percentage: 85%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Technical Skills -->
+                        <div class="mb-10">
+                            <h3 class="text-2xl font-bold mb-4 flex items-center">
+                                <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                Technical Skills
+                            </h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-bold text-gray-700 mb-2">Programming</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">Java</span>
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">Node.js</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-700 mb-2">Frameworks & Libraries</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">Flask</span>
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">React.js</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-700 mb-2">Technologies</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">HTML 5</span>
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">CSS 3</span>
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">Bootstrap 5</span>
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">Tailwind CSS</span>
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">MySQL</span>
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">MongoDB</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-700 mb-2">Tools</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">Git</span>
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">GitHub</span>
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">Figma</span>
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">Windows</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-700 mb-2">Other</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">UI-UX Design</span>
+                                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">Prompt Engineering</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Certificates -->
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4 flex items-center">
+                                <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-certificate"></i>
+                                </div>
+                                Certificates
+                            </h3>
+                            <ul class="space-y-3 list-inside">
+                                <li class="flex items-start">
+                                    <i class="fas fa-award text-primary mt-1 mr-3"></i>
+                                    <span>Udemy Mastering JavaScript and jQuery Course</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-award text-primary mt-1 mr-3"></i>
+                                    <span>Udemy Java complete course using VS Code</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column -->
+                    <div class="resume-animate delay-4">
+                        <!-- Work Experience -->
+                        <div class="mb-10">
+                            <h3 class="text-2xl font-bold mb-4 flex items-center">
+                                <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                Work Experience
+                            </h3>
+                            <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-primary">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">MERN Stack Developer – Internship</h4>
+                                        <p class="text-primary font-medium">InfyNow Software Solutions, Kolhapur</p>
+                                    </div>
+                                    <span class="bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-sm">Jan 2025 – June 2025</span>
+                                </div>
+                                <div class="space-y-4 mt-4">
+                                    <div>
+                                        <h5 class="font-bold text-gray-700">Student Management System</h5>
+                                        <p class="text-gray-600 mt-1">
+                                            Developed a full-stack web app using React.js, Node.js and MongoDB for efficient student record
+                                            management with CRUD, search, and real-time updates. Designed a responsive, user-friendly interface
+                                            for smooth administrative use.
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-bold text-gray-700">Zotono Webpage <span class="text-primary text-sm ml-2">Zotono.com</span></h5>
+                                        <p class="text-gray-600 mt-1">
+                                            Built a Justdial-like platform using React.js and Node.js with API integration for listing and searching
+                                            businesses. Enabled seamless user interaction through a responsive frontend and efficient backend handling.
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-bold text-gray-700">Arks Aviation <span class="text-primary text-sm ml-2"><a href="https://arksaviation.com/" target="_blank">ArksAviation.com</a></span></h5>
+                                        <p class="text-gray-600 mt-1">
+                                            Contributed to the design and development of an aviation website, focusing
+                                            on responsive layout, user experience improvements, and streamlined content
+                                            management using HTML, CSS, JavaScript, and Bootstrap.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Projects -->
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4 flex items-center">
+                                <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-project-diagram"></i>
+                                </div>
+                                Projects
+                            </h3>
+                            <div class="space-y-6">
+                                <div class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="text-xl font-bold text-gray-800">Green Genius</h4>
+                                        <div class="flex flex-wrap gap-1">
+                                            <span class="bg-primary bg-opacity-10 text-primary px-2 py-0.5 rounded text-xs">Python</span>
+                                            <span class="bg-primary bg-opacity-10 text-primary px-2 py-0.5 rounded text-xs">MongoDB</span>
+                                            <span class="bg-primary bg-opacity-10 text-primary px-2 py-0.5 rounded text-xs">TensorFlow</span>
+                                            <span class="bg-primary bg-opacity-10 text-primary px-2 py-0.5 rounded text-xs">Jupyter</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600">
+                                        Developed a machine learning model to accurately identify medicinal plants from images. The project involved training
+                                        the model on visual features of various plant species to classify them efficiently. This tool aims to assist researchers and
+                                        herbalists in quickly recognizing medicinal plants.
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-shadow">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="text-xl font-bold text-gray-800">Blogify <span class="text-primary text-sm ml-2">Blogify-master</span></h4>
+                                        <div class="flex flex-wrap gap-1">
+                                            <span class="bg-primary bg-opacity-10 text-primary px-2 py-0.5 rounded text-xs">React.js</span>
+                                            <span class="bg-primary bg-opacity-10 text-primary px-2 py-0.5 rounded text-xs">Node.js</span>
+                                            <span class="bg-primary bg-opacity-10 text-primary px-2 py-0.5 rounded text-xs">Express.js</span>
+                                            <span class="bg-primary bg-opacity-10 text-primary px-2 py-0.5 rounded text-xs">MongoDB</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600">
+                                        Blogify is a blog application built with Node.js, Express.js, and React.js, featuring a custom API for data management.
+                                        It uses MongoDB for storing blog posts and Bootstrap for a modern, responsive UI. Key features include creating, updating,
+                                        viewing, and deleting blog posts.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0 text-center md:text-left">
+                    <h2 class="text-2xl font-display font-bold">Harshal Bichkar</h2>
+                    <p class="text-gray-400 mt-2">Full Stack Developer</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2023 Harshal Bichkar. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transform transition-transform duration-300 hover:scale-110 opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- JavaScript -->
+    <script>
+        // Initialize GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById('menuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            menuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+            });
+            
+            // Resume Popup
+            const resumeBtn = document.getElementById('resumeBtn');
+            const resumeBtnMobile = document.getElementById('resumeBtnMobile');
+            const resumePopup = document.getElementById('resumePopup');
+            const resumeOverlay = document.getElementById('resumeOverlay');
+            const resumeCloseBtn = document.getElementById('resumeCloseBtn');
+            
+            function openResumePopup() {
+                resumePopup.classList.add('active');
+                resumeOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeResumePopup() {
+                resumePopup.classList.remove('active');
+                resumeOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            resumeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openResumePopup();
+            });
+            
+            resumeBtnMobile.addEventListener('click', function(e) {
+                e.preventDefault();
+                openResumePopup();
+                mobileMenu.classList.remove('active');
+            });
+            
+            resumeCloseBtn.addEventListener('click', closeResumePopup);
+            resumeOverlay.addEventListener('click', closeResumePopup);
+            
+            // Typing Effect
+            const typingText = document.getElementById('typingText');
+            const texts = ['MERN Stack Developer', 'FrontEnd Developer', 'Web Enthusiast'];
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typingSpeed = 100;
+            
+            function typeText() {
+                const currentText = texts[textIndex];
+                
+                if (isDeleting) {
+                    typingText.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                    typingSpeed = 50;
+                } else {
+                    typingText.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                    typingSpeed = 100;
+                }
+                
+                if (!isDeleting && charIndex === currentText.length) {
+                    isDeleting = true;
+                    typingSpeed = 1000; // Pause at end
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % texts.length;
+                    typingSpeed = 500; // Pause before typing next
+                }
+                
+                setTimeout(typeText, typingSpeed);
+            }
+            
+            typeText();
+            
+            // Scroll Progress Bar
+            window.addEventListener('scroll', function() {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById('progressBar').style.width = scrolled + '%';
+                
+                // Navbar background change on scroll
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-lg');
+                    navbar.classList.add('py-2');
+                    navbar.classList.remove('py-4');
+                } else {
+                    navbar.classList.remove('shadow-lg');
+                    navbar.classList.add('py-4');
+                    navbar.classList.remove('py-2');
+                }
+            });
+            
+            // Navbar Active Link on Scroll
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // GSAP Animations
+            // About Section
+            gsap.from("#aboutImage", {
+                x: -100,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top 80%",
+                    end: "top 50%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+            
+            gsap.from("#aboutContent", {
+                x: 100,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top 80%",
+                    end: "top 50%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+            
+            // Skills Section
+            const skillCards = document.querySelectorAll('.skill-card');
+            skillCards.forEach((card, index) => {
+                gsap.to(card, {
+                    x: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    scrollTrigger: {
+                        trigger: "#skills",
+                        start: "top 80%",
+                        end: "top 50%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+            
+            // Projects Section
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach((card, index) => {
+                gsap.to(card, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    scrollTrigger: {
+                        trigger: "#projects",
+                        start: "top 80%",
+                        end: "top 50%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+            
+            // Contact Section
+            gsap.from("#contactForm", {
+                x: -100,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: "#contact",
+                    start: "top 80%",
+                    end: "top 50%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+            
+            gsap.from("#contactInfo", {
+                x: 100,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: "#contact",
+                    start: "top 80%",
+                    end: "top 50%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+            
+            // Project Modal
+            const viewProjectButtons = document.querySelectorAll('.view-project');
+            const projectModal = document.getElementById('project-modal');
+            const closeModal = document.getElementById('close-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            
+            // Project details
+            const projectDetails = {
+                'arks-aviation': {
+                    title: 'Arks Aviation Website',
+                    description: 'A professional website for an aviation training institute offering courses and certifications for students pursuing careers in the aviation industry.',
+                    technologies: ['HTML5', 'CSS3','PHP', 'JavaScript', 'Tailwind CSS', 'jQuery'],
+                    features: [
+                        'Responsive design for all devices',
+                        'Course listings with detailed syllabus and duration',
+                        'Student portal for accessing training materials and schedules',
+                        'Testimonials and placement highlights section',
+                        'Online admission and inquiry forms'
+                    ],
+                    image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+                    live:'https://arksaviation.com/',
+                    code:'https://github.com/HarshalBichakar/Arks_Aviation_Website.git'
+                },
+                'infynow': {
+                    title: 'Infynow Software Solutions',
+                    description: 'A tech firm portfolio built during internship, displaying services and team. The website showcases the company\'s projects, services, and team members.',
+                    technologies: ['HTML5', 'CSS3','PHP', 'JavaScript', 'Tailwind CSS'],
+                    features: [
+                        'Dynamic content management system',
+                        'Team member profiles with expertise areas',
+                        'Project showcase with filtering options',
+                        'Client testimonials carousel',
+                        'Contact form with validation'
+                    ],
+                    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+                    live:'https://www.infynow.com/',
+                    code:'https://github.com/HarshalBichakar/Infynow_Software_Solution_Website.git'
+                },
+                'zotono': {
+                    title: 'Zotono - Business Listing Platform',
+                    description: 'A Justdial-like business directory platform built during internship, allowing users to search and explore local businesses with real-time filtering.',
+                    technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS'],
+                    features: [
+                        'Real-time business search functionality',
+                        'Responsive layout with category-wise listings',
+                        'Business profile pages with contact and details',
+                        'API-driven dynamic data display',
+                        'Clean and modern UI design'
+                    ],
+                    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+                    live: '', // Replace if Zotono has its own live link
+                    code: 'https://github.com/HarshalBichkar/Zotono_new.git' // Replace with actual repo
+                },
+                'student-management': {
+                    title: 'Student Management System',
+                    description: 'A full-stack web application for managing student records, built with the MERN stack. Provides CRUD operations, search, and responsive UI.',
+                    technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'Bootstrap'],
+                    features: [
+                        'Add, update, view, and delete student records',
+                        'Search functionality with instant filtering',
+                        'Responsive and user-friendly UI',
+                        'REST API integration for real-time operations',
+                        'Form validation and error handling'
+                    ],
+                    image: 'https://www.hashmicro.com/blog/wp-content/uploads/2023/04/kemudahan-akses-data-12.png',
+                    live: '',
+                    code: 'https://github.com/HarshalBichkar/Student_management.git' 
+                },
+                'plusone-fabrics': {
+                    title: 'Plusone Fabrics',
+                    description: 'E-commerce interface for a fabric wholesaler with product display and contact integration. The platform allows customers to browse fabric collections and request quotes.',
+                    technologies: ['React', 'Express.js', 'MongoDB', 'Redux', 'Material UI'],
+                    features: [
+                        'Product catalog with categories and filters',
+                        'User authentication and profile management',
+                        'Admin dashboard for inventory management',
+                        'Quote request system',
+                        'Order tracking and history'
+                    ],
+                    image: 'https://cdn.pixabay.com/photo/2023/05/25/09/06/factory-8016686_1280.jpg',
+                    live:'https://www.plusonemachines.com/',
+                    code:''
+                },
+                'niswarga': {
+                    title: 'Niswarga Website',
+                    description: 'A clean wellness and Ayurveda website with blog and product highlights. The website provides information about Ayurvedic treatments, products, and wellness tips.',
+                    technologies: ['WordPress', 'PHP', 'MySQL', 'Custom Theme', 'WooCommerce'],
+                    features: [
+                        'Custom WordPress theme development',
+                        'Blog with categories and tags',
+                        'Product showcase with details',
+                        'Appointment booking system',
+                        'Newsletter subscription'
+                    ],
+                    image: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+                    live:'https://arksaviation.com/',
+                    code:''
+                },
+                'laxmi-developers': {
+                    title: 'Laxmi Developers',
+                    description: 'Real estate site featuring listings and property overviews. The website allows users to browse properties, view details, and contact agents.',
+                    technologies: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
+                    features: [
+                        'Property listings with search and filters',
+                        'Interactive map integration',
+                        'Virtual tour functionality',
+                        'Contact form for inquiries',
+                        'Admin panel for property management'
+                    ],
+                    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVhbCUyMGVzdGF0ZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
+                    live:'https://lakshmidevelopers.co.in/',
+                    code:''
+                },
+                'green-genius': {
+                    title: 'Green Genius',
+                    description: 'An ML-powered web app that identifies medicinal plants using image input and TensorFlow. Users can upload plant images to identify species and learn about their medicinal properties.',
+                    technologies: ['Python', 'TensorFlow', 'Flask', 'HTML', 'CSS', 'JavaScript'],
+                    features: [
+                        'Image recognition using TensorFlow',
+                        'Database of medicinal plants and properties',
+                        'User authentication and history',
+                        'Mobile-responsive design',
+                        'Educational content about plant benefits'
+                    ],
+                    image: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGxhbnR8ZW58MHx8MHx8DA%3D%3D&auto=format&fit=crop&w=500&q=60',
+                    live:'',
+                    code:'https://github.com/HarshalBichakar/Green-Genius.git'
+                },
+                'vaccination-system': {
+                    title: 'Vaccination Slot Availability System',
+                    description: 'Real-time system that fetches vaccine slot data via APIs and displays to users. The application helps users find available vaccination slots in their area.',
+                    technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'REST API'],
+                    features: [
+                        'Real-time data fetching from government APIs',
+                        'Location-based search functionality',
+                        'Notification system for slot availability',
+                        'User preferences and saved locations',
+                        'Mobile-responsive interface'
+                    ],
+                    image: 'https://www.bmedicalsystems.com/en-in/wp-content/uploads/sites/7/2022/05/Blog_Flu-Vaccine-Storage-1024x573-1.jpg',
+                    live:'',
+                    code:''
+                }
+            };
+            
+            viewProjectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const projectId = this.getAttribute('data-project');
+                    const project = projectDetails[projectId]
+                    
+                    modalTitle.textContent = project.title;
+                    
+                    let content = `
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <img src="${project.image}" alt="${project.title}" class="w-full h-64 object-cover rounded-lg mb-6">
+                                <div class="flex flex-wrap gap-2 mb-6">
+                                    ${project.technologies.map(tech => `<span class="bg-primary bg-opacity-10 text-primary text-xs font-medium px-3 py-1 rounded-full">${tech}</span>`).join('')}
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-3">Description</h4>
+                                <p class="mb-6 text-gray-600">${project.description}</p>
+                                <h4 class="text-xl font-bold mb-3">Key Features</h4>
+                                <ul class="space-y-2 mb-6">
+                                    ${project.features.map(feature => `<li class="flex items-start"><div class="text-primary mr-2 mt-1"><i class="fas fa-check-circle"></i></div><span class="text-gray-600">${feature}</span></li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex justify-end">
+                            <a href="${project.live}" target="_blank" class="bg-gradient text-white py-2 px-6 rounded-full text-sm font-medium mr-4 hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                                View Live
+                            </a>
+                            <a href="${project.view}" target="_blank" class="bg-dark hover:bg-gray-900 text-white py-2 px-6 rounded-full text-sm font-medium transition-colors">
+                                View Code
+                            </a>
+                        </div>
+                    `;
+                    
+                    modalContent.innerHTML = content;
+                    projectModal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            closeModal.addEventListener('click', function() {
+                projectModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === projectModal) {
+                    projectModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Contact Form Submission
+            const contactForm = document.getElementById('contact-form');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // In a real application, you would send the form data to a server
+                // For this example, we'll just show a success message
+                
+                const formData = new FormData(contactForm);
+                const name = formData.get('name');
+                
+                alert(`Thank you, ${name}! Your message has been sent. I'll get back to you soon.`);
+                contactForm.reset();
+            });
+        });
+
+        // Scroll to Top Button
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.remove('opacity-0', 'invisible');
+                scrollToTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                scrollToTopBtn.classList.add('opacity-0', 'invisible');
+                scrollToTopBtn.classList.remove('opacity-100', 'visible');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#6366f1"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#6366f1",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>
